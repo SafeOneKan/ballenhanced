@@ -4,8 +4,13 @@ const canvas = document.querySelector("canvas")
 const c = canvas.getContext("2d")
 const reset = document.querySelector("#reset")
 const scoretext = document.querySelector(".score")
-canvas.width = 500
-canvas.height = 700
+
+window.addEventListener("load",()=>{
+    canvas.width = window.innerWidth * .6
+    canvas.height = window.innerHeight*.8
+    table.width = canvas.width*0.25
+    
+})
 let speed = 1.5
 let velocity = 10
 let side = 1
@@ -14,8 +19,9 @@ let score = 0
 play = true
 
 window.addEventListener("resize",()=>{
-    canvas.width = 500
-canvas.height = 700
+    canvas.width = innerWidth * .6
+    canvas.height = innerHeight*.8
+    
 })
 
 
@@ -54,21 +60,24 @@ class Table{
     frid(){
         c.fillStyle = "black"
         c.fillRect(this.x,this.y,this.width,this.height)
+        c.stroke()
     }
 }
 
-const ball = new Player({x:150,y:0})
+const ball = new Player({x:canvas.width*.2,y:0})
 window.addEventListener("mousemove",(e)=>{
-    console.log(e.clientX)
-    if(e.clientX >= 265 && e.clientX <=1000)
-    table.x = e.clientX - canvas.width
+  
+    
+    table.x = e.clientX + canvas.width - innerWidth*.8
 })
 window.addEventListener("touchmove",(e)=>{
-    if(e.touches[0].clientX >= 265 && e.touches[0].clientX <=1000)
-    e.preventDefault()
-    table.x = e.touches[0].clientX - canvas.width
+    
+         table.x = e.touches[0].clientX + canvas.width - innerWidth*.8
+    
+   
 })
-const table = new Table(0,650,150,15)
+
+const table = new Table(0,canvas.height,canvas.width*.4,15)
 animate()
 window.addEventListener("keydown",(e)=>{
     if(e.key == "d" && table.x + table.width <= canvas.width){
@@ -85,6 +94,7 @@ function animate(){
     
     c.fillStyle = "white"
     c.fillRect(0,0,canvas.width,canvas.height)
+    table.y = canvas.height*.9
     c.beginPath()
     if (play){
         ball.position.y += velocity
@@ -133,4 +143,6 @@ function animate(){
         text.textContent = `U LOST THE GAME`
         box.style.setProperty("display","flex")
     }
+
+   
 }

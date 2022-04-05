@@ -20,11 +20,11 @@ canvas{
    
 }
 .score{
-    
+    --hich : 0;
     color: rgb(37, 243, 30);
     font-size: 40px;
     position: absolute;
-    top: 50px;
+    top: var(--hich);
     margin-right: 10px;    
     border-radius: 30%;
     width: fit-content;
