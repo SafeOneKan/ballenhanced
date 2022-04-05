@@ -13,6 +13,11 @@ plus = true
 let score = 0
 play = true
 
+window.addEventListener("resize",()=>{
+    canvas.width = 500
+canvas.height = 700
+})
+
 
 reset.addEventListener("click",()=>{
     play = true
@@ -53,12 +58,15 @@ class Table{
 }
 
 const ball = new Player({x:150,y:0})
-canvas.addEventListener("mousemove",(e)=>{
-    table.x = e.clientX - 590
+window.addEventListener("mousemove",(e)=>{
+    console.log(e.clientX)
+    if(e.clientX >= 265 && e.clientX <=1000)
+    table.x = e.clientX - canvas.width
 })
-canvas.addEventListener("touchmove",(e)=>{
+window.addEventListener("touchmove",(e)=>{
+    if(e.touches[0].clientX >= 265 && e.touches[0].clientX <=1000)
     e.preventDefault()
-    table.x = e.touches[0].clientX - 440
+    table.x = e.touches[0].clientX - canvas.width
 })
 const table = new Table(0,650,150,15)
 animate()
